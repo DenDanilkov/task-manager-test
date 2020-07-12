@@ -1,3 +1,8 @@
 {
-  "secret": "secretKey"  
+  "secret": "secretKey" ,
+  "db": {
+    "user": "Den",
+    "password": "Coq0utRzPcAuRG6Y",
+    "db-name": "task-manager"
+  }
 }
