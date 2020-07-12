@@ -5,23 +5,23 @@ const config = require('config');
 
 class UsersController {
   static async getAll(req, res) {
-    const users = await User.find();
+    const users = await User.find({},{password: 0});
     return res.send(users);
   }
   static async getById(req, res) {
     const userId = req.params.id;
-    const user = await User.findById(userId);
+    const user = await User.findById(userId, {password: 0});
     return res.send(user);
   }
   static async update(req, res) {
     const { idUser, ...updatedUserData } = req.body;
-    const updatedUser = await User.findByIdAndUpdate(idUser, updatedUserData);
-    return res.send(updatedUser);
+    await User.findByIdAndUpdate(idUser, updatedUserData);
+    return res.status(200).send("user is updated");
   }
   static async removeById(req, res) {
     const userId = req.params.id;
     const removedUser = await User.findByIdAndRemove(userId);
-    return res.send(removedUser);
+    return res.status(200).send('User is removed');
   }
   static async register(req, res) {
     try {
