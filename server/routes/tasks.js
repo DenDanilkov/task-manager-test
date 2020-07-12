@@ -8,8 +8,8 @@ router
   .get(authMiddleware, TasksController.getAll)
   .put(authMiddleware, TasksController.update)
   .post(authMiddleware, TasksController.create);
+router.route("/status").get(authMiddleware, TasksController.getByCriteria);
 router.route("/:id").get(authMiddleware, TasksController.getById);
 router.route("/:id").delete(authMiddleware, TasksController.removeById);
-router.route("/status").delete(authMiddleware, TasksController.getByCriteria);
 
 module.exports = router;
