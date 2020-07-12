@@ -1,16 +1,16 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const config = require('config');
+const config = require("config");
 
 class UsersController {
   static async getAll(req, res) {
-    const users = await User.find({},{password: 0});
+    const users = await User.find({}, { password: 0 });
     return res.send(users);
   }
   static async getById(req, res) {
     const userId = req.params.id;
-    const user = await User.findById(userId, {password: 0});
+    const user = await User.findById(userId, { password: 0 });
     return res.send(user);
   }
   static async update(req, res) {
@@ -21,7 +21,7 @@ class UsersController {
   static async removeById(req, res) {
     const userId = req.params.id;
     const removedUser = await User.findByIdAndRemove(userId);
-    return res.status(200).send('User is removed');
+    return res.status(200).send("User is removed");
   }
   static async register(req, res) {
     try {
@@ -33,7 +33,7 @@ class UsersController {
       });
       const token = jwt.sign(
         { userId: newUser._id, surname: newUser.surname, name: newUser.name },
-        config.get('secret'),
+        config.get("secret"),
         {
           expiresIn: 86400,
         }
@@ -60,7 +60,7 @@ class UsersController {
       if (!passwordIsValid)
         return res.status(401).send({ auth: false, token: null });
 
-      const token = jwt.sign({ id: user._id },  config.get('secret'), {
+      const token = jwt.sign({ id: user._id }, config.get("secret"), {
         expiresIn: 86400,
       });
       return res.status(200).send({ auth: true, token: token });
