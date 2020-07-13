@@ -17,6 +17,10 @@ const user = new Schema({
     type: String,
     required: true,
   },
+  avatar: {
+    type: String,
+    default: 'avatars/unknown.png',
+  },
 });
 
 module.exports = model("User", user);

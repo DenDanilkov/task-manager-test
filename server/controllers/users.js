@@ -2,26 +2,54 @@ const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const config = require("config");
-
 class UsersController {
+  static async addAvatar(req, res) {
+    try {
+      const idUser = req.userInfo.userId;
+      await User.findOneAndUpdate(
+        { _id: idUser },
+        { $set: { avatar: req.file.path } }
+      );
+      return res.send("Avatar is updated");
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   static async getAll(req, res) {
-    const users = await User.find({}, { password: 0 });
-    return res.send(users);
+    try {
+      const users = await User.find({}, { password: 0 });
+      return res.send(users);
+    } catch (error) {
+      console.log(error.message);
+    }
   }
   static async getById(req, res) {
-    const userId = req.params.id;
-    const user = await User.findById(userId, { password: 0 });
-    return res.send(user);
+    try {
+      const userId = req.params.id;
+      const user = await User.findById(userId, { password: 0 });
+      return res.send(user);
+    } catch (error) {
+      console.log(error.message);
+    }
   }
   static async update(req, res) {
-    const { idUser, ...updatedUserData } = req.body;
-    await User.findByIdAndUpdate(idUser, updatedUserData);
-    return res.status(200).send("user is updated");
+    try {
+      const idUser = req.userInfo.userId;
+      await User.findByIdAndUpdate(idUser, req.body);
+      return res.status(200).send("user is updated");
+    } catch (error) {
+      console.log(error.message);
+    }
   }
   static async removeById(req, res) {
-    const userId = req.params.id;
-    const removedUser = await User.findByIdAndRemove(userId);
-    return res.status(200).send("User is removed");
+    try {
+      const userId = req.params.id;
+      await User.findByIdAndRemove(userId);
+      return res.status(200).send("User is removed");
+    } catch (error) {
+      console.log(error.message);
+    }
   }
   static async register(req, res) {
     try {
