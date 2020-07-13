@@ -66,7 +66,9 @@ class UsersController {
           expiresIn: 86400,
         }
       );
-      return res.status(200).send({ auth: true, token: token });
+      return res
+        .status(200)
+        .send({ auth: true, token: token, user: { ...newUser } });
     } catch (error) {
       return res
         .status(500)
@@ -91,7 +93,7 @@ class UsersController {
       const token = jwt.sign({ id: user._id }, config.get("secret"), {
         expiresIn: 86400,
       });
-      return res.status(200).send({ auth: true, token: token });
+      return res.status(200).send({ auth: true, token: token, user });
     } catch (error) {
       return res
         .status(500)

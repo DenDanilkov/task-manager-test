@@ -1,0 +1,29 @@
+html {
+  font-size: 16px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  font-size: 1rem;
+  line-height: 1.5;
+  box-sizing: border-box;
+  max-width: 1920px;
+  margin: 0 auto;
+}
+
+img,
+svg {
+  max-width: 100%;
+  height: auto;
+}
+
+textarea {
+  resize: none;
+}

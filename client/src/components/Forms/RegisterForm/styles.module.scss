@@ -1,0 +1,34 @@
+.form {
+  max-width: 350px;
+  width: 100%;
+  padding: 15px 30px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid black;
+}
+
+.description-field {
+  padding: 0 5px;
+  flex-basis: 60%;
+}
+
+.title {
+  align-self: center;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.group {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  label {
+    margin-right: 10px;
+  }
+}
+
+.confirm {
+  align-self: flex-end;
+  margin: 10px 0;
+  padding: 10px;
+}
