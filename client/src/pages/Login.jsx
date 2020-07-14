@@ -8,10 +8,8 @@ import styles from './auth.module.scss';
 function Login() {
   const [isError, setIsError] = useState(false);
   const { setAuthTokens, isLoggedIn, setLoggedIn } = useAuth();
-  debugger;
   const postLogin = async (body) => {
     try {
-      debugger;
       const result = await authRequests.auth.login(body);
       if (result.status === 200) {
         setAuthTokens(result.data);

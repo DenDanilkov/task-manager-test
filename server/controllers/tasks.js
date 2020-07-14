@@ -83,11 +83,10 @@ class TasksController {
   static async update(req, res) {
     try {
       const { idTask, ...updatedTaskData } = req.body;
-      const updatedTask = await Task.findByIdAndUpdate(
-        idTask,
-        updatedTaskData,
-        { new: true }
-      );
+      let updatedTask = await Task.findByIdAndUpdate(idTask, updatedTaskData, {
+        new: true,
+      });
+      updatedTask = await updatedTask.populate("statusId").execPopulate();
       return res.send(updatedTask);
     } catch (error) {
       console.log(error.message);

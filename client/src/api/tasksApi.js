@@ -9,5 +9,8 @@ export default (http) => {
     delete: (id) => {
       return http.delete(`tasks/${id}`);
     },
+    update: (body) => {
+      return http.put('tasks', body);
+    },
   };
 };

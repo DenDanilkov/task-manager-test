@@ -44,7 +44,6 @@ export const tasksFeature = createSlice({
       state.loading = true;
     },
     changeTaskStatusSuccess: (state, { payload }) => {
-      debugger;
       state.loading = false;
       state.tasks = state.tasks.map((item) => {
         if (item.statusId._id === payload._id) {
@@ -56,6 +55,23 @@ export const tasksFeature = createSlice({
     },
 
     changeTaskStatusFailure: (state, { payload }) => {
+      state.errors.push(payload);
+    },
+    changeTaskRequest: (state) => {
+      state.loading = true;
+    },
+    changeTaskSuccess: (state, { payload }) => {
+      state.loading = false;
+      state.tasks = state.tasks.map((item) => {
+        if (item._id === payload._id) {
+          item = payload;
+          return item;
+        }
+        return item;
+      });
+    },
+
+    changeTaskFailure: (state, { payload }) => {
       state.errors.push(payload);
     },
   },
@@ -74,6 +90,9 @@ export const {
   changeTaskStatusRequest,
   changeTaskStatusSuccess,
   changeTaskStatusFailure,
+  changeTaskRequest,
+  changeTaskSuccess,
+  changeTaskFailure,
 } = tasksFeature.actions;
 export default tasksFeature.reducer;
 
@@ -101,6 +120,7 @@ function* deleteTaskWorker({ payload }) {
     yield put(deleteTasksFailure(e.message));
   }
 }
+
 function* changeTaskStatusWorker({ payload }) {
   try {
     const response = yield call(api.statuses.update, payload);
@@ -110,9 +130,19 @@ function* changeTaskStatusWorker({ payload }) {
   }
 }
 
+function* changeTaskWorker({ payload }) {
+  try {
+    const response = yield call(api.tasks.update, payload);
+    yield put(changeTaskSuccess(response));
+  } catch (e) {
+    yield put(changeTaskFailure(e.message));
+  }
+}
+
 export function* tasksSaga() {
   yield takeEvery(fetchTasksRequest().type, fetchTasksWorker);
   yield takeEvery(createTaskRequest().type, createTaskWorker);
   yield takeEvery(deleteTaskRequest().type, deleteTaskWorker);
+  yield takeEvery(changeTaskRequest().type, changeTaskWorker);
   yield takeEvery(changeTaskStatusRequest().type, changeTaskStatusWorker);
 }
