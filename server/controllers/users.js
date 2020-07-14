@@ -33,6 +33,17 @@ class UsersController {
       console.log(error.message);
     }
   }
+
+  static async getCurrentUser(req, res) {
+    try {
+      const idUser = req.userInfo.id;
+      const user = await User.findById(idUser, { password: 0 });
+      return res.send(user);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   static async update(req, res) {
     try {
       const idUser = req.userInfo.id;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { AuthContext } from './context/auth';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
@@ -9,12 +9,22 @@ import Register from './pages/Register';
 import PrivateRoute from './components/PrivateRoute';
 import './styles/main.scss';
 import { setToken } from './api/httpClient';
+import { api } from './api/index';
 import store from './store';
 
 function App() {
   const existingTokens = JSON.parse(localStorage.getItem('tokens'));
   const [authTokens, setAuthTokens] = useState(existingTokens);
   const [isLoggedIn, setLoggedIn] = useState(false);
+
+  const retrieveUserData = async () => {
+    try {
+      const data = await api.users.getCurrent();
+      setUserData(data);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   if (authTokens && !isLoggedIn) {
     setToken(authTokens, 'User');
@@ -29,6 +39,12 @@ function App() {
     setUserData(data.user);
     setAuthTokens(data.token);
   };
+
+  useEffect(() => {
+    if (isLoggedIn && !userData) {
+      retrieveUserData();
+    }
+  }, [isLoggedIn]);
 
   return (
     <Provider store={store}>

@@ -2,11 +2,13 @@ import httpClient from './httpClient';
 import tasksApi from './tasksApi';
 import auth from './auth';
 import statusesApi from './statusesApi';
+import usersApi from './usersApi';
 
 export function apiFactory(http) {
   return {
     tasks: tasksApi(http),
     statuses: statusesApi(http),
+    users: usersApi(http),
   };
 }
 export function authFactory(http) {

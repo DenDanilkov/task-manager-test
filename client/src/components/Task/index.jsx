@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import classnames from 'classnames';
 import styles from './styles.module.scss';
 import { useDispatch } from 'react-redux';
 import {
@@ -6,10 +7,12 @@ import {
   changeTaskStatusRequest,
   changeTaskRequest,
 } from '../../features/tasks';
+import { dateFormater } from '../../utils/dateFormatter';
 
 const Task = ({ id, title, description, date, status, idStatus }) => {
   const dispatch = useDispatch();
   const [descriptionMode, setDescriptionMode] = useState(false);
+
   const changeStatusHandler = (e) => {
     dispatch(changeTaskStatusRequest({ idStatus, title: e.target.value }));
   };
@@ -25,7 +28,11 @@ const Task = ({ id, title, description, date, status, idStatus }) => {
   }, [descriptionMode]);
 
   return (
-    <div className={styles.container}>
+    <div
+      className={classnames(styles.container, {
+        [styles['description-mode']]: descriptionMode,
+      })}
+    >
       <div className={styles.head}>
         <div className={styles.title}>{title}</div>
         <select onChange={changeStatusHandler} className={styles.status} defaultValue={status}>
@@ -35,7 +42,12 @@ const Task = ({ id, title, description, date, status, idStatus }) => {
         </select>
       </div>
       {!descriptionMode && (
-        <div onClick={() => setDescriptionMode(true)} className={styles.description}>
+        <div
+          onClick={() => setDescriptionMode(true)}
+          className={classnames(styles.description, {
+            [styles['description-mode']]: !descriptionMode,
+          })}
+        >
           {description}
         </div>
       )}
@@ -49,7 +61,7 @@ const Task = ({ id, title, description, date, status, idStatus }) => {
       )}
 
       <div className={styles['info-control']}>
-        <div className={styles.time}>{date}</div>
+        <div className={styles.time}>{dateFormater(date)}</div>
         <button onClick={() => dispatch(deleteTaskRequest(id))} className={styles.delete}>
           Delete Task
         </button>

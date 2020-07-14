@@ -1,6 +1,23 @@
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 10px;
   background-color: rgb(197, 189, 189);
+}
+
+.logout {
+  cursor: pointer;
+}
+
+.image {
+  background-size: cover;
+}
+
+.user {
+  max-width: 200px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
