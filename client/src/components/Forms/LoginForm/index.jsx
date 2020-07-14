@@ -1,6 +1,7 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import styles from './styles.module.scss';
+import { Link } from 'react-router-dom';
 
 const LoginForm = ({ submit }) => {
   const formik = useFormik({
@@ -41,6 +42,7 @@ const LoginForm = ({ submit }) => {
         />
       </div>
       <button className={styles.confirm}>Login</button>
+      <Link to={`/register`}>Not registered?</Link>
     </form>
   );
 };

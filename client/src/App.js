@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Provider } from 'react-redux';
 import { AuthContext } from './context/auth';
 import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
 import Header from './components/Header/index.jsx';
@@ -8,10 +9,18 @@ import Register from './pages/Register';
 import PrivateRoute from './components/PrivateRoute';
 import './styles/main.scss';
 import { setToken } from './api/httpClient';
+import store from './store';
 
 function App() {
   const existingTokens = JSON.parse(localStorage.getItem('tokens'));
   const [authTokens, setAuthTokens] = useState(existingTokens);
+  const [isLoggedIn, setLoggedIn] = useState(false);
+
+  if (authTokens && !isLoggedIn) {
+    setToken(authTokens, 'User');
+    setLoggedIn(true);
+  }
+
   const [userData, setUserData] = useState();
 
   const setTokens = (data) => {
@@ -22,14 +31,18 @@ function App() {
   };
 
   return (
-    <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens, user: userData }}>
-      <Header />
-      <Router>
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        <PrivateRoute exact path="/" component={Home} />
-      </Router>
-    </AuthContext.Provider>
+    <Provider store={store}>
+      <AuthContext.Provider
+        value={{ authTokens, setAuthTokens: setTokens, user: userData, isLoggedIn, setLoggedIn }}
+      >
+        <Header />
+        <Router>
+          <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
+          <PrivateRoute exact path="/" component={Home} />
+        </Router>
+      </AuthContext.Provider>
+    </Provider>
   );
 }
 

@@ -10,10 +10,20 @@ class TasksController {
       console.log(error.message);
     }
   }
+  static async getAllForUser(req, res) {
+    try {
+      const userId = req.userInfo.id;
+      const tasks = await Task.find({ userId }).populate("statusId");
+
+      return res.send(tasks);
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
   static async getById(req, res) {
     try {
       const taskId = req.params.id;
-      const task = await Task.findById(taskId).populate(["userId", "statusId"]);
+      const task = await Task.findById(taskId).populate("statusId");
       return res.send(task);
     } catch (error) {
       console.log(error.message);
@@ -54,16 +64,17 @@ class TasksController {
   }
   static async create(req, res) {
     try {
-      const userId = req.userInfo.userId;
+      const userId = req.userInfo.id;
       const newTaskData = req.body;
       const newStatus = await Status.create({
         description: newTaskData.description,
       });
-      const newTask = await Task.create({
+      let newTask = await Task.create({
         ...newTaskData,
         userId,
         statusId: newStatus._id,
       });
+      newTask = await newTask.populate("statusId").execPopulate();
       return res.send(newTask);
     } catch (error) {
       console.log(error.message);
@@ -72,7 +83,11 @@ class TasksController {
   static async update(req, res) {
     try {
       const { idTask, ...updatedTaskData } = req.body;
-      const updatedTask = await Task.findByIdAndUpdate(idTask, updatedTaskData);
+      const updatedTask = await Task.findByIdAndUpdate(
+        idTask,
+        updatedTaskData,
+        { new: true }
+      );
       return res.send(updatedTask);
     } catch (error) {
       console.log(error.message);

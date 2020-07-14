@@ -1,10 +1,13 @@
-export default http => {
+export default (http) => {
   return {
     getAll: () => {
-      return http.get('destinations');
+      return http.get('tasks/particularUser');
     },
-    create: body => {
-      return http.post('destinations', body);
+    create: (body) => {
+      return http.post('tasks', body);
+    },
+    delete: (id) => {
+      return http.delete(`tasks/${id}`);
     },
   };
 };

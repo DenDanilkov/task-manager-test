@@ -5,7 +5,7 @@ const config = require("config");
 class UsersController {
   static async addAvatar(req, res) {
     try {
-      const idUser = req.userInfo.userId;
+      const idUser = req.userInfo.id;
       await User.findOneAndUpdate(
         { _id: idUser },
         { $set: { avatar: req.file.path } }
@@ -35,8 +35,8 @@ class UsersController {
   }
   static async update(req, res) {
     try {
-      const idUser = req.userInfo.userId;
-      await User.findByIdAndUpdate(idUser, req.body);
+      const idUser = req.userInfo.id;
+      await User.findByIdAndUpdate(idUser, req.body, { new: true });
       return res.status(200).send("user is updated");
     } catch (error) {
       console.log(error.message);

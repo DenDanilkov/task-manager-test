@@ -6,13 +6,11 @@ import { useAuth } from '../context/auth';
 import styles from './auth.module.scss';
 
 function Register() {
-  const [isLoggedIn, setLoggedIn] = useState(false);
   const [isError, setIsError] = useState(false);
-  const { setAuthTokens } = useAuth();
+  const { setAuthTokens, isLoggedIn, setLoggedIn } = useAuth();
 
   const postLogin = async (body) => {
     try {
-      debugger;
       const result = await authRequests.auth.register(body);
       if (result.status === 200) {
         setAuthTokens(result.data);
@@ -26,7 +24,7 @@ function Register() {
   };
 
   if (isLoggedIn) {
-    return <Redirect to={'/'} />;
+    return <Redirect to={{ pathname: '/' }} />;
   }
 
   return (

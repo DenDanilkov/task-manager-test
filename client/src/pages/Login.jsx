@@ -6,10 +6,9 @@ import { useAuth } from '../context/auth';
 import styles from './auth.module.scss';
 
 function Login() {
-  const [isLoggedIn, setLoggedIn] = useState(false);
   const [isError, setIsError] = useState(false);
-  const { setAuthTokens } = useAuth();
-
+  const { setAuthTokens, isLoggedIn, setLoggedIn } = useAuth();
+  debugger;
   const postLogin = async (body) => {
     try {
       debugger;
@@ -26,7 +25,7 @@ function Login() {
   };
 
   if (isLoggedIn) {
-    return <Redirect to={'/'} />;
+    return <Redirect to={{ pathname: '/' }} />;
   }
   return (
     <div className={styles.container}>

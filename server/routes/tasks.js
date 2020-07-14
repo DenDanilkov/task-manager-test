@@ -9,6 +9,9 @@ router
   .put(authMiddleware, TasksController.update)
   .post(authMiddleware, TasksController.create);
 router.route("/status").get(authMiddleware, TasksController.getByCriteria);
+router
+  .route("/particularUser")
+  .get(authMiddleware, TasksController.getAllForUser);
 router.route("/:id").get(authMiddleware, TasksController.getById);
 router.route("/:id").delete(authMiddleware, TasksController.removeById);
 
