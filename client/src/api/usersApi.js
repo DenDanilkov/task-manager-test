@@ -4,7 +4,7 @@ export default (http) => {
       return http.get(`users/current`);
     },
     addAvatar: (body) => {
-      return http.post(`users/avatar`, body);
+      return http.postImage(`users/avatar`, body);
     },
   };
 };

@@ -13,9 +13,12 @@ const AppHeader = () => {
     resetTokens();
     setLoggedIn(false);
   };
-
+  console.log('User', user);
   const onFileAddition = (e) => {
-    dispatch(changeAvatarRequest({ image: e.target.files[0] }));
+    const data = new FormData();
+    const file = e.target.files[0];
+    data.append('image', file);
+    dispatch(changeAvatarRequest(data));
     setChangeAvatarMode(false);
   };
   return (
@@ -32,11 +35,12 @@ const AppHeader = () => {
           <div>{`Hello ${user.name} ${user.surname}`}</div>
           {!isChangeAvatarMode && (
             <div
+              onClick={() => setChangeAvatarMode(true)}
               className={styles.image}
               style={{
                 width: `50px`,
                 height: `50px`,
-                backgroundImage: `url(http://localhost:3500/${user.avatar}`,
+                backgroundImage: `url(http://localhost:3500/avatars/${user.avatar}`,
               }}
             ></div>
           )}

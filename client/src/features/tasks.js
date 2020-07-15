@@ -159,6 +159,7 @@ function* changeTaskWorker({ payload }) {
   }
 }
 function* changeAvatarWorker({ payload }) {
+  debugger;
   try {
     const response = yield call(api.users.addAvatar, payload);
     yield put(changeAvatarSuccess(response));

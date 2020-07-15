@@ -8,7 +8,7 @@ class UsersController {
       const idUser = req.userInfo.id;
       let user = await User.findOneAndUpdate(
         { _id: idUser },
-        { $set: { avatar: req.file.path } },
+        { $set: { avatar: req.file.filename } },
         {
           new: true,
         }
@@ -67,6 +67,8 @@ class UsersController {
   }
   static async register(req, res) {
     try {
+      const user = await User.findOne({ email: req.body.email });
+      if (user) return res.status(404).send("There is a user with such email");
       const hashedPassword = bcrypt.hashSync(req.body.password, 8);
       const newUserData = req.body;
       const newUser = await User.create({

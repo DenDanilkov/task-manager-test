@@ -25,6 +25,15 @@ const httpClient = (baseURL) => {
       });
       return res;
     },
+    postImage: async (path, params = {}) => {
+      const res = await axios.post(`${baseURL}${path}`, params, {
+        headers: {
+          ...authHeader,
+          ['Content-Type']: 'multipart/form-data; boundary=something',
+        },
+      });
+      return res;
+    },
 
     put: async (path, params = {}) => {
       const res = await axios.put(`${baseURL}${path}`, params, {
