@@ -15,7 +15,7 @@ const AppHeader = () => {
   };
 
   const onFileAddition = (e) => {
-    dispatch(changeAvatarRequest(e.target.files[0]));
+    dispatch(changeAvatarRequest({ image: e.target.files[0] }));
     setChangeAvatarMode(false);
   };
   return (

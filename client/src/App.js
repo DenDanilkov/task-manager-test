@@ -13,7 +13,6 @@ import { api } from './api/index';
 import store from './store';
 
 function App() {
-  debugger;
   const existingTokens = JSON.parse(localStorage.getItem('tokens'));
   const [authTokens, setAuthTokens] = useState(existingTokens);
   const [isLoggedIn, setLoggedIn] = useState(false);
