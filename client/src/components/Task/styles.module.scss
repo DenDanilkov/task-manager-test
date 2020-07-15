@@ -4,17 +4,17 @@
   align-items: center;
   justify-content: center;
   padding: 10px;
-  background-color: rgb(199, 178, 178);
+  background-color: #6a62ea;
   width: 100%;
   max-width: 500px;
-  border: 1px solid black;
   margin-bottom: 20px;
+  border-radius: 5px;
+  color: #fff;
 }
 
 .head {
   display: flex;
   justify-content: space-between;
-  padding: 15px;
   width: 100%;
   text-transform: uppercase;
   font-size: 25px;
@@ -22,9 +22,11 @@
 
 .description {
   margin: 10px 0;
-  padding: 10px;
   width: 100%;
   font-size: 15px;
+  border: none;
+  outline: none;
+  border-radius: 5px;
 }
 
 .info-control {
@@ -38,9 +40,19 @@
 }
 
 .status {
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  background: #fff;
+  border-radius: 5px;
+  padding: 10px 5px;
   cursor: pointer;
 }
 
 .delete {
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  background: #fff;
+  border-radius: 5px;
+  padding: 10px 5px;
   cursor: pointer;
 }

@@ -4,7 +4,17 @@
   padding: 15px 30px;
   display: flex;
   flex-direction: column;
-  border: 1px solid black;
+  border-radius: 5px;
+  background-color: #6a62ea;
+  color: #fff;
+  input {
+    border-radius: 5px;
+    border: none;
+  }
+  textarea {
+    border-radius: 5px;
+    border: none;
+  }
 }
 
 .title {
@@ -26,4 +36,9 @@
   align-self: flex-end;
   margin: 10px 0;
   padding: 10px;
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  background: #fff;
+  border-radius: 5px;
+  padding: 10px 5px;
 }

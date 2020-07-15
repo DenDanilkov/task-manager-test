@@ -3,7 +3,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  background-color: rgb(197, 189, 189);
+  background-color: #6a62ea;
+  color: #fff;
 }
 
 .logout {
@@ -16,9 +17,10 @@
 }
 
 .user {
-  max-width: 200px;
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  div {
+    margin: 0 20px;
+  }
 }

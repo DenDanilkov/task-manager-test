@@ -32,7 +32,6 @@ const AppHeader = () => {
           <div>{`Hello ${user.name} ${user.surname}`}</div>
           {!isChangeAvatarMode && (
             <div
-              onClick={() => setChangeAvatarMode(true)}
               className={styles.image}
               style={{
                 width: `50px`,

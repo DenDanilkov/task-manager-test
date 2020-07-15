@@ -68,7 +68,9 @@ const RegisterForm = ({ submit }) => {
         />
       </div>
       <button className={styles.confirm}>Register</button>
-      <Link to={`/login`}>Already registered?</Link>
+      <Link style={{ ['text-decoration']: 'none', color: 'white' }} to={`/login`}>
+        Already registered?
+      </Link>
     </form>
   );
 };
