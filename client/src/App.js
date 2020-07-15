@@ -56,6 +56,7 @@ function App() {
           isLoggedIn,
           setLoggedIn,
           resetTokens: setAuthTokens,
+          setUserData,
         }}
       >
         <Header />

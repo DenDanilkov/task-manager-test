@@ -13,7 +13,7 @@ class UsersController {
           new: true,
         }
       );
-      return res.send("Avatar is updated");
+      return res.send(user);
     } catch (error) {
       console.log(error.message);
     }
@@ -75,16 +75,10 @@ class UsersController {
         ...newUserData,
         password: hashedPassword,
       });
-      const token = jwt.sign(
-        { userId: newUser._id, surname: newUser.surname, name: newUser.name },
-        config.get("secret"),
-        {
-          expiresIn: 86400,
-        }
-      );
-      return res
-        .status(200)
-        .send({ auth: true, token: token, user: { ...newUser } });
+      const token = jwt.sign({ id: newUser._id }, config.get("secret"), {
+        expiresIn: 86400,
+      });
+      return res.status(200).send({ auth: true, token: token, user: newUser });
     } catch (error) {
       return res
         .status(500)

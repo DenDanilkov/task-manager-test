@@ -1,28 +1,35 @@
 import React, { useState } from 'react';
+import classnames from 'classnames';
 import styles from './styles.module.scss';
 import { useAuth } from '../../context/auth';
-import { changeAvatarRequest } from '../../features/tasks';
-import { useDispatch } from 'react-redux';
+import { api } from '../../api/index';
 
 const AppHeader = () => {
-  const { user, isLoggedIn, setLoggedIn, setAuthTokens, resetTokens } = useAuth();
+  const { user, isLoggedIn, setLoggedIn, resetTokens, setUserData } = useAuth();
   const [isChangeAvatarMode, setChangeAvatarMode] = useState(false);
-  const dispatch = useDispatch();
   const logout = () => {
     localStorage.clear();
     resetTokens();
     setLoggedIn(false);
   };
-  console.log('User', user);
   const onFileAddition = (e) => {
     const data = new FormData();
     const file = e.target.files[0];
     data.append('image', file);
-    dispatch(changeAvatarRequest(data));
+    avatarUploadRequest(data);
     setChangeAvatarMode(false);
   };
+
+  const avatarUploadRequest = async (data) => {
+    const { data: user } = await api.users.addAvatar(data);
+    setUserData(user);
+  };
   return (
-    <header className={styles.header}>
+    <header
+      className={classnames(styles.header, {
+        [styles['change-mode']]: isChangeAvatarMode,
+      })}
+    >
       <div>Tasks-Manager test</div>
       {isLoggedIn && (
         <div onClick={logout} className={styles.logout}>
@@ -45,6 +52,11 @@ const AppHeader = () => {
             ></div>
           )}
           {isChangeAvatarMode && <input onChange={onFileAddition} name="myAvatar" type="file" />}
+          {isChangeAvatarMode && (
+            <button onClick={() => setChangeAvatarMode(false)} className={styles.exit}>
+              Exit Avatar mode
+            </button>
+          )}
         </div>
       )}
     </header>

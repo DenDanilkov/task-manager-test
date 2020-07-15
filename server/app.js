@@ -31,21 +31,6 @@ app.use(
   multer({ storage: fileStorage, fileFilter: fileFilter }).single("image")
 );
 
-const swaggerOptions = {
-  swaggerDefinition: {
-    info: {
-      version: "1.0.0",
-      title: "Tasks-Manager API",
-      description: "Tasks-Manager API Information",
-      contact: {
-        name: "Denis",
-      },
-      servers: ["http://localhost:3000"],
-    },
-  },
-  apis: ["./routes/*.js"],
-};
-
 const indexRouter = require("./routes/index");
 
 app.use(logger("dev"));

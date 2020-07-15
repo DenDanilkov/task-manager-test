@@ -7,6 +7,10 @@
   color: #fff;
 }
 
+.change-mode {
+  cursor: pointer;
+}
+
 .logout {
   cursor: pointer;
 }
@@ -24,4 +28,13 @@
   div {
     margin: 0 20px;
   }
+}
+
+.exit {
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+  background: #fff;
+  border-radius: 5px;
+  padding: 10px 5px;
+  font-size: 12px;
 }

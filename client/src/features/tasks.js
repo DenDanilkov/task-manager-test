@@ -1,4 +1,4 @@
-import { takeEvery, put, call, delay } from 'redux-saga/effects';
+import { takeEvery, put, call } from 'redux-saga/effects';
 import { createSlice } from '@reduxjs/toolkit';
 import { api } from '../api';
 
@@ -74,23 +74,6 @@ export const tasksFeature = createSlice({
     changeTaskFailure: (state, { payload }) => {
       state.errors.push(payload);
     },
-    changeAvatarRequest: (state) => {
-      state.loading = true;
-    },
-    changeAvatarSuccess: (state, { payload }) => {
-      // state.loading = false;
-      // state.tasks = state.tasks.map((item) => {
-      //   if (item._id === payload._id) {
-      //     item = payload;
-      //     return item;
-      //   }
-      //   return item;
-      // });
-    },
-
-    changeAvatarFailure: (state, { payload }) => {
-      state.errors.push(payload);
-    },
   },
 });
 
@@ -110,9 +93,6 @@ export const {
   changeTaskRequest,
   changeTaskSuccess,
   changeTaskFailure,
-  changeAvatarRequest,
-  changeAvatarSuccess,
-  changeAvatarFailure,
 } = tasksFeature.actions;
 export default tasksFeature.reducer;
 
@@ -158,15 +138,6 @@ function* changeTaskWorker({ payload }) {
     yield put(changeTaskFailure(e.message));
   }
 }
-function* changeAvatarWorker({ payload }) {
-  debugger;
-  try {
-    const response = yield call(api.users.addAvatar, payload);
-    yield put(changeAvatarSuccess(response));
-  } catch (e) {
-    yield put(changeAvatarFailure(e.message));
-  }
-}
 
 export function* tasksSaga() {
   yield takeEvery(fetchTasksRequest().type, fetchTasksWorker);
@@ -174,5 +145,4 @@ export function* tasksSaga() {
   yield takeEvery(deleteTaskRequest().type, deleteTaskWorker);
   yield takeEvery(changeTaskRequest().type, changeTaskWorker);
   yield takeEvery(changeTaskStatusRequest().type, changeTaskStatusWorker);
-  yield takeEvery(changeAvatarRequest().type, changeAvatarWorker);
 }

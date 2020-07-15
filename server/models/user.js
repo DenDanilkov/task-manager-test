@@ -19,7 +19,7 @@ const user = new Schema({
   },
   avatar: {
     type: String,
-    default: 'avatars/unknown.png',
+    default: "unknown.png",
   },
 });
 
