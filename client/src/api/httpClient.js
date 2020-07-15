@@ -29,7 +29,7 @@ const httpClient = (baseURL) => {
       const res = await axios.post(`${baseURL}${path}`, params, {
         headers: {
           ...authHeader,
-          ['Content-Type']: 'multipart/form-data; boundary=something',
+          'Content-Type': 'multipart/form-data; boundary=something',
         },
       });
       return res;
