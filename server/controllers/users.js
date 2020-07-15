@@ -6,9 +6,12 @@ class UsersController {
   static async addAvatar(req, res) {
     try {
       const idUser = req.userInfo.id;
-      await User.findOneAndUpdate(
+      let user = await User.findOneAndUpdate(
         { _id: idUser },
-        { $set: { avatar: req.file.path } }
+        { $set: { avatar: req.file.path } },
+        {
+          new: true,
+        }
       );
       return res.send("Avatar is updated");
     } catch (error) {

@@ -13,6 +13,7 @@ import { api } from './api/index';
 import store from './store';
 
 function App() {
+  debugger;
   const existingTokens = JSON.parse(localStorage.getItem('tokens'));
   const [authTokens, setAuthTokens] = useState(existingTokens);
   const [isLoggedIn, setLoggedIn] = useState(false);
@@ -49,7 +50,14 @@ function App() {
   return (
     <Provider store={store}>
       <AuthContext.Provider
-        value={{ authTokens, setAuthTokens: setTokens, user: userData, isLoggedIn, setLoggedIn }}
+        value={{
+          authTokens,
+          setAuthTokens: setTokens,
+          user: userData,
+          isLoggedIn,
+          setLoggedIn,
+          resetTokens: setAuthTokens,
+        }}
       >
         <Header />
         <Router>
