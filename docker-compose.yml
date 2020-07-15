@@ -1,0 +1,38 @@
+version: "3.7"
+
+services:
+  server:
+    container_name: server
+    build:
+      context: ./server/
+      target: development
+    volumes:
+      - ./server/:/usr/src/app
+      - /usr/src/app/node_modules
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+    command: yarn start
+    env_file:
+      - .env
+    links:
+      - mongo
+    depends_on:
+      - mongo
+      - client
+
+  client:
+    container_name: client
+    build:
+      context: ./client/
+      target: development
+    command: yarn start
+    env_file:
+      - .env
+    ports:
+      - ${CLIENT_PORT}:${CLIENT_PORT}
+    stdin_open: true
+
+  mongo:
+    image: mongo:latest
+    ports:
+      - ${DB_PORT}:${DB_PORT}

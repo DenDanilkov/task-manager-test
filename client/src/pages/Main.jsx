@@ -12,7 +12,7 @@ function Home(props) {
   });
   useEffect(() => {
     dispatch(fetchTasksRequest());
-  }, []);
+  }, [dispatch]);
   return (
     <div className={styles.container}>
       <div className={styles.tasks}>

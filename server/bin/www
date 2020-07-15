@@ -11,8 +11,10 @@ const server = http.createServer(app);
 
 async function start() {
   try {
-    const url = `mongodb+srv://${config.get('db.user')}:${config.get('db.password')}@test-task-manager-clust.pohp3.mongodb.net/${config.get('db.db-name')}?retryWrites=true&w=majority`
-    await mongoose.connect(url, {useNewUrlParser: true, useUnifiedTopology: true})
+    await mongoose.connect(
+    'mongodb://mongo:27017/task-manager-test',
+    { useNewUrlParser: true, useUnifiedTopology: true },
+  )
 
     server.listen(port, () => {
       console.log(`Server is running on port ${port}`)

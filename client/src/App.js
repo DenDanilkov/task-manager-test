@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Provider } from 'react-redux';
 import { AuthContext } from './context/auth';
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Header from './components/Header/index.jsx';
 import Home from './pages/Main';
 import Login from './pages/Login';
@@ -44,7 +44,7 @@ function App() {
     if (isLoggedIn && !userData) {
       retrieveUserData();
     }
-  }, [isLoggedIn]);
+  }, [isLoggedIn, userData]);
 
   return (
     <Provider store={store}>

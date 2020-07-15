@@ -8,7 +8,7 @@ function authMiddleware(req, res, next) {
 
   const token = req.headers.authorization.split(" ")[1];
 
-  jwt.verify(token, config.get("secret"), function (err, decoded) {
+  jwt.verify(token, process.env.SECRET, function (err, decoded) {
     if (err)
       return res
         .status(500)

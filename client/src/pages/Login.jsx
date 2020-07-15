@@ -6,6 +6,7 @@ import { useAuth } from '../context/auth';
 import styles from './auth.module.scss';
 
 function Login() {
+  // eslint-disable-next-line
   const [isError, setIsError] = useState(false);
   const { setAuthTokens, isLoggedIn, setLoggedIn } = useAuth();
   const postLogin = async (body) => {

@@ -75,7 +75,7 @@ class UsersController {
         ...newUserData,
         password: hashedPassword,
       });
-      const token = jwt.sign({ id: newUser._id }, config.get("secret"), {
+      const token = jwt.sign({ id: newUser._id }, process.env.SECRET, {
         expiresIn: 86400,
       });
       return res.status(200).send({ auth: true, token: token, user: newUser });
@@ -100,7 +100,7 @@ class UsersController {
       if (!passwordIsValid)
         return res.status(401).send({ auth: false, token: null });
 
-      const token = jwt.sign({ id: user._id }, config.get("secret"), {
+      const token = jwt.sign({ id: user._id }, process.env.SECRET, {
         expiresIn: 86400,
       });
       return res.status(200).send({ auth: true, token: token, user });
