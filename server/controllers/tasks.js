@@ -4,7 +4,7 @@ const Status = require("../models/status");
 class TasksController {
   static async getAll(req, res) {
     try {
-      const tasks = await Task.find().populate(["userId", "statusId"]);
+      const tasks = await Task.find();
       return res.send(tasks);
     } catch (error) {
       console.log(error.message);
