@@ -4,7 +4,6 @@ COPY package*.json ./
 COPY yarn.lock ./
 RUN yarn install --only=development
 COPY . .
-CMD ["yarn", "start"]
 
 FROM node:14-alpine as production
 ARG NODE_ENV=production

@@ -25,6 +25,9 @@ services:
     build:
       context: ./client/
       target: development
+    volumes:
+      - ./client/:/usr/src/app
+      - /usr/src/app/node_modules
     command: yarn start
     env_file:
       - .env
