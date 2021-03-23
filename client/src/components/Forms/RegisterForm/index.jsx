@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const RenderedForm = (props) => {
+const RenderedRegisterForm = (props) => {
   const {
     values: { name, email, password, surname },
     errors,
@@ -49,7 +49,6 @@ const RenderedForm = (props) => {
   const styles = useStyles();
 
   const change = (name, e) => {
-    console.log(e);
     e.persist();
     handleChange(e);
     setFieldTouched(name, true, false);
@@ -147,11 +146,10 @@ const RegisterForm = ({ submit }) => {
   return (
     <Paper className={styles.container} elevation={1}>
       <Formik
-        render={(props) => <RenderedForm {...props} />}
+        render={(props) => <RenderedRegisterForm {...props} />}
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values, actions) => {
-          debugger;
           submit(values);
           actions.resetForm();
         }}
