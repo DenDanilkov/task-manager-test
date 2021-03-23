@@ -3,6 +3,15 @@ import classnames from 'classnames';
 import styles from './styles.module.scss';
 import { useAuth } from '../../context/auth';
 import { api } from '../../api/index';
+import { AppBar, Button, IconButton, Menu, Toolbar, Typography } from '@material-ui/core';
+import { AccountCircle } from '@material-ui/icons';
+import MenuItem from 'antd/es/menu/MenuItem';
+
+class MenuIcon extends React.Component {
+  render() {
+    return null;
+  }
+}
 
 const AppHeader = () => {
   const { user, isLoggedIn, setLoggedIn, resetTokens, setUserData } = useAuth();
@@ -24,7 +33,62 @@ const AppHeader = () => {
     const { data: user } = await api.users.addAvatar(data);
     setUserData(user);
   };
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const isMenuOpen = Boolean(anchorEl);
+
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    handleMobileMenuClose();
+  };
+
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id="primary-search-account-menu"
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMenuOpen}
+      onClose={handleMenuClose}
+    >
+      <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+    </Menu>
+  );
+
   return (
+    // <AppBar position="static">
+    //   <Toolbar>
+    //     <Typography variant="h6" edge="start">
+    //       Task-Manager
+    //     </Typography>
+    //     {!isLoggedIn && (
+    //       <Typography variant="h6" edge="end">
+    //         Please authorize
+    //       </Typography>
+    //     )}
+    //     {isLoggedIn && (
+    //       <IconButton
+    //         edge="end"
+    //         aria-label="account of current user"
+    //         aria-controls="primary-search-account-menu"
+    //         aria-haspopup="true"
+    //         onClick={handleProfileMenuOpen}
+    //         color="inherit"
+    //       >
+    //         <AccountCircle />
+    //       </IconButton>
+    //     )}
+    //     {renderMenu}
+    //   </Toolbar>
+    // </AppBar>
     <header
       className={classnames(styles.header, {
         [styles['change-mode']]: isChangeAvatarMode,
