@@ -16,6 +16,7 @@ import {
   CardContent,
   CardHeader,
   IconButton,
+  Tooltip,
   Typography,
 } from '@material-ui/core';
 
@@ -85,12 +86,16 @@ const Task = ({ id, title, description, date, status, idStatus }) => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="remove task">
-          <DeleteIcon />
-        </IconButton>
-        <IconButton aria-label="edit">
-          <EditIcon />
-        </IconButton>
+        <Tooltip title="Delete" enterDelay={500} leaveDelay={200}>
+          <IconButton aria-label="remove task">
+            <DeleteIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Edit description" enterDelay={500} leaveDelay={200}>
+          <IconButton aria-label="edit">
+            <EditIcon />
+          </IconButton>
+        </Tooltip>
       </CardActions>
     </Card>
   );
