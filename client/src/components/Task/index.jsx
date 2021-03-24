@@ -77,7 +77,7 @@ const Task = ({ id, title, description, date, status, idStatus }) => {
     //     </button>
     //   </div>
     // </div>
-    <Card>
+    <Card className={styles.container}>
       <CardHeader title={title} subheader={dateFormater(date)} />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">

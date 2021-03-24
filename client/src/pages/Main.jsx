@@ -17,7 +17,7 @@ function Home(props) {
   return (
     <Container className={styles.container} maxWidth="false">
       <Toolbar />
-      <Grid justify="space-between" container alignContent="center" className={styles.main}>
+      <Grid justify="space-around" container alignContent="center" className={styles.main}>
         <div className={styles.tasks}>
           {!tasks.length ? (
             <span className={styles['no-data']}>You haven't created any task yet!</span>
