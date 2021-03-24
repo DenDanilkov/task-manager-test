@@ -1,8 +1,7 @@
 .container {
-  padding: 50px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: flex !important;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 .tasks {
@@ -13,4 +12,8 @@
 .no-data {
   text-transform: uppercase;
   font-weight: bold;
+}
+
+.main {
+  flex: 1
 }

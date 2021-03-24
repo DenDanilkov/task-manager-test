@@ -1,45 +1,18 @@
-.form {
-  max-width: 350px;
+.container {
+  max-width: 400px;
   width: 100%;
   padding: 15px 30px;
+}
+
+form {
   display: flex;
   flex-direction: column;
-  border-radius: 5px;
-  background-color: #6a62ea;
-  color: #fff;
-  input {
-    border-radius: 5px;
-    border: none;
-  }
-  textarea {
-    border-radius: 5px;
-    border: none;
-  }
 }
 
-.title {
-  align-self: center;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-}
-
-.group {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
-  label {
-    margin-right: 10px;
-  }
-}
-
-.confirm {
+.link {
+  color: black;
+  margin-top: 40px;
   align-self: flex-end;
-  margin: 10px 0;
-  padding: 10px;
-  border: none;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-  background: #fff;
-  border-radius: 5px;
-  padding: 10px 5px;
-  cursor: pointer;
+  display: inline-block;
+  font-family: 'Roboto';
 }
