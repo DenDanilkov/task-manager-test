@@ -1,8 +1,11 @@
+const root = require("./resolvers/resolvers");
+const schema = require("./schema/schema");
 const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
 const logger = require("morgan");
 const multer = require("multer");
+const { graphqlHTTP } = require("express-graphql");
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -32,6 +35,7 @@ app.use(
 );
 
 const indexRouter = require("./routes/index");
+const authMiddleware = require("./middlewares/auth.middleware");
 
 app.use(logger("dev"));
 app.use(function (req, res, next) {
@@ -49,6 +53,15 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/avatars", express.static(path.join(__dirname, "avatars")));
 
 app.use("/", indexRouter);
+
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    graphiql: true,
+    schema,
+    rootValue: root,
+  })
+);
 
 app.use(function (req, res, next) {
   next(createError(404));
