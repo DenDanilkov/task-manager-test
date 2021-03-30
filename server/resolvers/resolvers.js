@@ -8,14 +8,16 @@ const root = {
     return tasks;
   },
   createTask: async ({ taskData }, request) => {
-    const userId = request.userInfo.id;
+    // const userId = request.userInfo.id;
     const newTaskData = taskData;
     const newStatus = await Status.create({
       description: newTaskData.description,
     });
     let newTask = await Task.create({
       ...newTaskData,
-      userId,
+      ...{
+        userId: "6061cf1846c562002f6c62b1",
+      },
       statusId: newStatus._id,
     });
     newTask = await newTask.populate("statusId").execPopulate();
@@ -29,8 +31,9 @@ const root = {
     updatedTask = await updatedTask.populate("statusId").execPopulate();
     return updatedTask;
   },
-  deleteTask: async (taskId) => {
+  removeTask: async (taskId) => {
     Task.findByIdAndRemove(taskId);
+    return taskId;
   },
 };
 

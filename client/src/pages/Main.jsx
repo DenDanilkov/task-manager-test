@@ -1,28 +1,27 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styles from './main.module.scss';
 import AddTaskform from '../components/Forms/AddTaskForm';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchTasksRequest } from '../features/tasks';
 import Task from '../components/Task';
 import { Container, Grid, Toolbar } from '@material-ui/core';
+import { GET_ALL_TASKS } from './queries';
+import { useQuery } from '@apollo/client';
 
 function Home(props) {
-  const dispatch = useDispatch();
-  const tasks = useSelector((state) => {
-    return state.tasks.tasks;
+  const { data, loading } = useQuery(GET_ALL_TASKS, {
+    fetchPolicy: 'network-only',
   });
-  useEffect(() => {
-    dispatch(fetchTasksRequest());
-  }, [dispatch]);
+
+  console.log(data);
+
   return (
     <Container className={styles.container} maxWidth="false">
       <Toolbar />
       <Grid justify="space-around" container alignItems="center" className={styles.main}>
         <div className={styles.tasks}>
-          {!tasks.length ? (
+          {!data?.getAllTasks.length ? (
             <span className={styles['no-data']}>You haven't created any task yet!</span>
           ) : (
-            tasks.map((item) => {
+            data?.getAllTasks.map((item) => {
               return (
                 <Task
                   id={item._id}

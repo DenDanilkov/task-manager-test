@@ -8,7 +8,7 @@ const schema = buildSchema(`
     userId: ID
     name: String
     title: String
-    status: Status
+    statusId: Status
     description: String
     createdAt: Date
     updatedAt: Date
@@ -37,6 +37,7 @@ const schema = buildSchema(`
   type Mutation {
     createTask(taskData: CreateTaskInput): Task
     updateTask(updateTaskData: UpdateTaskInput): Task
+    removeTask(taskId: ID): ID
   }
 `);
 

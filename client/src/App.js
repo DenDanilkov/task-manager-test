@@ -11,6 +11,12 @@ import './styles/main.scss';
 import { setToken } from './api/httpClient';
 import { api } from './api/index';
 import store from './store';
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+
+const client = new ApolloClient({
+  uri: 'http://localhost:3500/graphql',
+  cache: new InMemoryCache(),
+});
 
 function App() {
   const existingTokens = JSON.parse(localStorage.getItem('tokens'));
@@ -47,26 +53,28 @@ function App() {
   }, [isLoggedIn, userData]);
 
   return (
-    <Provider store={store}>
-      <AuthContext.Provider
-        value={{
-          authTokens,
-          setAuthTokens: setTokens,
-          user: userData,
-          isLoggedIn,
-          setLoggedIn,
-          resetTokens: setAuthTokens,
-          setUserData,
-        }}
-      >
-        <Header />
-        <Router>
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={Register} />
-          <PrivateRoute exact path="/" component={Home} />
-        </Router>
-      </AuthContext.Provider>
-    </Provider>
+    <ApolloProvider client={client}>
+      <Provider store={store}>
+        <AuthContext.Provider
+          value={{
+            authTokens,
+            setAuthTokens: setTokens,
+            user: userData,
+            isLoggedIn,
+            setLoggedIn,
+            resetTokens: setAuthTokens,
+            setUserData,
+          }}
+        >
+          <Header />
+          <Router>
+            <Route path="/login" component={Login} />
+            <Route path="/register" component={Register} />
+            <PrivateRoute exact path="/" component={Home} />
+          </Router>
+        </AuthContext.Provider>
+      </Provider>
+    </ApolloProvider>
   );
 }
 

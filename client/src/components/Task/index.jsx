@@ -24,9 +24,12 @@ import {
   Tooltip,
   Typography,
 } from '@material-ui/core';
+import { useMutation } from '@apollo/client';
+import { REMOVE_TASK } from './mutations';
 
 const Task = ({ id, title, description, date, status, idStatus }) => {
   const dispatch = useDispatch();
+  const [addTask] = useMutation(REMOVE_TASK);
   const [descriptionMode, setDescriptionMode] = useState(false);
   const [descriptionField, setDescriptionField] = useState('');
 
@@ -62,45 +65,6 @@ const Task = ({ id, title, description, date, status, idStatus }) => {
   };
 
   return (
-    // <div
-    //   className={classnames(styles.container, {
-    //     [styles['description-mode']]: descriptionMode,
-    //   })}
-    // >
-    //   <div className={styles.head}>
-    //     <div className={styles.title}>{title}</div>
-    //     <select onChange={changeStatusHandler} className={styles.status} defaultValue={status}>
-    //       <option value="not started">not started</option>
-    //       <option value="completed">completed</option>
-    //       <option value="in progress">in progress</option>
-    //     </select>
-    //   </div>
-    //   {!descriptionMode && (
-    //     <div
-    //       onClick={() => setDescriptionMode(true)}
-    //       className={classnames(styles.description, {
-    //         [styles['description-mode']]: !descriptionMode,
-    //       })}
-    //     >
-    //       {description}
-    //     </div>
-    //   )}
-    //   {descriptionMode && (
-    //     <textarea
-    //       ref={ref}
-    //       onBlur={onBlurHandler}
-    //       className={styles.description}
-    //       defaultValue={description}
-    //     ></textarea>
-    //   )}
-    //
-    //   <div className={styles['info-control']}>
-    //     <div className={styles.time}>{dateFormater(date)}</div>
-    //     <button onClick={() => dispatch(deleteTaskRequest(id))} className={styles.delete}>
-    //       Delete Task
-    //     </button>
-    //   </div>
-    // </div>
     <Card className={styles.container}>
       <CardHeader
         title={title}

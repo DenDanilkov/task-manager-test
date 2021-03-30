@@ -1,7 +1,7 @@
 import React from 'react';
 import { Formik, useFormik } from 'formik';
 import styles from './styles.module.scss';
-import { useDispatch } from 'react-redux';
+import { useMutation } from '@apollo/client';
 import { createTaskRequest } from '../../../features/tasks';
 import {
   Button,
@@ -14,6 +14,9 @@ import {
   Typography,
 } from '@material-ui/core';
 import * as Yup from 'yup';
+import { ADD_TASK } from './mutations';
+import { logger } from 'redux-logger/src';
+import { GET_ALL_TASKS } from '../../../pages/queries';
 
 const useStyles = makeStyles((theme) => ({
   title: {
@@ -99,7 +102,7 @@ const RenderedAddTaskForm = (props) => {
 };
 
 const AddTaskform = () => {
-  const dispatch = useDispatch();
+  const [addTask] = useMutation(ADD_TASK);
 
   const validationSchema = Yup.object({
     title: Yup.string('').required('Task name is required'),
@@ -111,12 +114,6 @@ const AddTaskform = () => {
     description: '',
   };
 
-  const formik = useFormik({
-    onSubmit: (values) => {
-      dispatch(createTaskRequest(values));
-      formik.resetForm();
-    },
-  });
   return (
     <Paper className={styles.container} elevation={1}>
       <Formik
@@ -124,7 +121,31 @@ const AddTaskform = () => {
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values, actions) => {
-          dispatch(createTaskRequest(values));
+          const { title, description } = values;
+          addTask({
+            variables: {
+              taskData: {
+                title,
+                description,
+              },
+            },
+            update(cache, { data: { createTask } }) {
+              const { getAllTasks } = cache.readQuery({
+                query: GET_ALL_TASKS,
+              });
+
+              const newTasks = [...getAllTasks, createTask];
+
+              cache.writeQuery({
+                query: GET_ALL_TASKS,
+                data: {
+                  getAllTasks: newTasks,
+                },
+              });
+
+              console.log(cache);
+            },
+          }).catch((error) => console.log(error));
           actions.resetForm();
         }}
       />
